@@ -3,7 +3,11 @@ guid: 036265c296bf38f44b7dbd593fd14e0e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Soil: {fileID: 7439322389009573058, guid: 867f0a060e1b21d4aaa9ec257a3913e8, type: 3}
+  - Grass: {instanceID: 0}
+  - Wall: {instanceID: 0}
+  - Mtn: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

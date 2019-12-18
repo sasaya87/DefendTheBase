@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public bool IsObstacle;
-    public bool IsSoil;
     public bool IsPassable;
-    public bool IsBrekable;
+    public GameObject setItem;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +19,5 @@ public class Tile : MonoBehaviour
         
     }
 
-    public GameObject GetSetItem(){
-        
-    } 
+
 }
