@@ -95,5 +95,5 @@ MonoBehaviour:
   HP: 150
   Alien1: {fileID: 8811394291862141507, guid: c21a9e6d122d429469aa7cb942a98d07, type: 3}
   Alien2: {fileID: 7257362170268158660, guid: 154324849d047224b818a2a29c9506c8, type: 3}
-  aln1ratio: 0.6
-  geninterval: 45
+  aln1Ratio: 0.5
+  genInterval: 80
