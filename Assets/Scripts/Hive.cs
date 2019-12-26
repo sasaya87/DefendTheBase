@@ -7,19 +7,21 @@ public class Hive : Spawn
     public GameObject Alien1;
     public GameObject Alien2;
     public float aln1ratio;
-    public float geninterval;
+    public float genInterval;
 
     IEnumerator Start ()
 	{
 		while (true) {
             if(Random.value < aln1ratio){
-                Instantiate (Alien1, transform.position, transform.rotation);
+                GameObject alien1 = Instantiate (Alien1, transform.position, transform.rotation);
+                alien1.GetComponent<Enemy>().hive = this.gameObject;
             }else{
-                Instantiate (Alien2, transform.position, transform.rotation);
+                GameObject alien2 = Instantiate(Alien2, transform.position, transform.rotation);
+                alien2.GetComponent<Enemy>().hive = this.gameObject;
             }
 
-			// 60秒待つ
-			yield return new WaitForSeconds (geninterval);
+			// genInterval秒待つ
+			yield return new WaitForSeconds (genInterval);
 		}
 	}
 

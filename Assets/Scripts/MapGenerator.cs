@@ -17,7 +17,7 @@ public class MapGenerator : MonoBehaviour
     private const int HIVE1 = 3;
     private const int HIVE2 = 4;
     private const int HIVE3 = 5;
-    private GameObject[,] Tiles;
+    public Tile[,] Tiles;
     public GameObject Soil;
     public GameObject Mtn;
     public GameObject Base;
@@ -77,28 +77,48 @@ public class MapGenerator : MonoBehaviour
                 break;
             }
         }
-        CreateHive();
-        int hvcnt = 0;
+        CreateHive(); //Hiveの作成
+        Tiles = new Tile[Height, Width]; //Tilesの作成
         for (int i = 0; i < Height; i++) {
             for (int j = 0; j < Width; j++) {
                 GameObject soilClone;
                 soilClone = Instantiate(Soil, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity);
-                if(Map[i,j] != SOIL){
-                    if(Map[i,j] == MTN){
-                        soilClone.GetComponent<Tile>().setItem = Mtn;
-                    }else if(Map[i,j] == BASE){
-                        soilClone.GetComponent<Tile>().setItem = Base;
-                    }else if(Map[i,j] == HIVE1){
-                        soilClone.GetComponent<Tile>().setItem = Hive1;
-                    }else if(Map[i,j] == HIVE2){
-                        soilClone.GetComponent<Tile>().setItem = Hive2;
-                    }else{
-                        soilClone.GetComponent<Tile>().setItem = Hive3;
+                Tile tile = soilClone.GetComponent<Tile>();
+                //それぞれのTileにi,jのインデックス座標を設定
+                tile.i = i;
+                tile.j = j;
+                //TilesにTileを格納
+                Tiles[i, j] = tile;
+                if (Map[i,j] != SOIL){
+                    switch (Map[i,j])
+                    {
+                        case MTN:
+                            GameObject mtnObj = Instantiate(Mtn, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
+                            //mtnObj.transform.parent = soilClone.transform;
+                            break;
+                        case BASE:
+                            GameObject baseObj = Instantiate(Base, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
+                            //baseObj.transform.parent = soilClone.transform;
+                            PathFinding.goalTile = soilClone.GetComponent<Tile>();
+                            break;
+                        case HIVE1:
+                            GameObject hive1Obj = Instantiate(Hive1, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
+                            //hive1Obj.transform.parent = soilClone.transform;
+                            break;
+                        case HIVE2:
+                            GameObject hive2Obj = Instantiate(Hive2, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
+                            //hive2Obj.transform.parent = soilClone.transform;
+                            break;
+                        default:
+                            GameObject hive3Obj = Instantiate(Hive3, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
+                            //hive3Obj.transform.parent = soilClone.transform;
+                            break;
                     }
-                    Instantiate(soilClone.GetComponent<Tile>().setItem, soilClone.transform.position, Quaternion.identity);
                 }
             }
         }
+        //PathFindingのTilesをセット
+        PathFinding.Tiles = Tiles;
     }
 
     //エイリアンの巣の初期位置を決める。必ずCreateBaseより後に実行すること

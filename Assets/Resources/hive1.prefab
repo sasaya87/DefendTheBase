@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6351834958038803996}
   - component: {fileID: 1338965671502260286}
-  - component: {fileID: 114304012019673166}
+  - component: {fileID: 114808967426440980}
   m_Layer: 11
   m_Name: hive1
   m_TagString: Untagged
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &114304012019673166
+--- !u!114 &114808967426440980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae33564a72732b40a9e0c755112dac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 0
   Alien1: {fileID: 8811394291862141507, guid: c21a9e6d122d429469aa7cb942a98d07, type: 3}
   Alien2: {fileID: 7257362170268158660, guid: 154324849d047224b818a2a29c9506c8, type: 3}
-  aln1ratio: 0.7
-  geninterval: 60
+  aln1ratio: 0.4
+  genInterval: 12

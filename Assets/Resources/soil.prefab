@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5612627550549150769}
   - component: {fileID: 2772913574043995789}
-  - component: {fileID: 114804088464581560}
+  - component: {fileID: 114548803318968688}
   m_Layer: 14
   m_Name: soil
   m_TagString: Untagged
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &114804088464581560
+--- !u!114 &114548803318968688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,5 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585d1e288b8171346a7f30c7360572bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPassable: 0
-  setItem: {fileID: 0}
+  isPassable: 0
+  i: 0
+  j: 0
