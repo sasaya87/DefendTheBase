@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hive : Spawn
+public class Hive : MonoBehaviour
 {
     public GameObject Alien1;
     public GameObject Alien2;

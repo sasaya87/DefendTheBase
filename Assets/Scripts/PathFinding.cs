@@ -10,7 +10,6 @@ public class PathFinding : MonoBehaviour
     private int nodeIndex; //現在の出発点のノードのインデックス. nodeIndex + 1 が現在の目的地
 
     //A*関連
-    private List<DirectedNode> closedList = new List<DirectedNode>(); //処理済みのノードが入っているリスト
     private List<DirectedNode> openList = new List<DirectedNode>(); //これから処理をするノードが入っているリスト
     private DirectedNode[,] tileNodes; //マップ全体のノードが入っている配列（このインスタンス専用）
 
@@ -39,7 +38,7 @@ public class PathFinding : MonoBehaviour
         GetPathVectorList(goalNode);
         //Debug.Log("start"+pathList.Count);
         pathList.Reverse();
-        
+        GetComponent<Enemy>().pathList = this.pathList;
     }
 
     // Update is called once per frame
@@ -49,7 +48,7 @@ public class PathFinding : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }else{
             Vector2 direction = (pathList[nodeIndex+1] - (Vector2)transform.position).normalized; 
-            GetComponent<Rigidbody2D>().velocity = direction * GetComponent<Enemy>().speed;
+            GetComponent<Rigidbody2D>().velocity = direction * GetComponent<Character>().speed;
             if(Vector2.Distance(transform.position, pathList[nodeIndex+1]) <= 0.1){
                 nodeIndex++;
             }
@@ -100,16 +99,33 @@ public class PathFinding : MonoBehaviour
                         //openListに入っているものは実コストを計算しなおしてより少ない値で更新
                         //同時に親も更新する
                         if(Tiles[i,j].isPassable ){
+                            //今から調べるノード
                             DirectedNode inspectedNode = tileNodes[i,j];
-                            if (!inspectedNode.isClosed) {
-                                //ノード間のコストの計算.斜め移動はルート2,縦横は1
-                                float nToNCost;
-                                if (i != inspectedNode.i && j != inspectedNode.j) {
-                                    nToNCost = Mathf.Sqrt(2);
-                                } else {
-                                    nToNCost = 1;
-                                }
+                            //ノード間のコストの計算.斜め移動はルート2,縦横は1
+                            float nToNCost;
+                            if (i != inspectedNode.i && j != inspectedNode.j)
+                            {
+                                nToNCost = Mathf.Sqrt(2);
+                            }
+                            else
+                            {
+                                nToNCost = 1;
+                            }
 
+                            if (inspectedNode.isClosed) //ノードがclosedの場合
+                            {
+                                //そのノード(inspentedNode)の今の実コストとnextSeachedNodeを経由した場合の実コストを比較して、
+                                //それが今の実コストより小さければ新しい値で更新し、親も付け替える
+                                //また、inspectedNodeをopenListに復帰させる
+                                if (inspectedNode.ActualCost > nextSearchedNode.ActualCost + nToNCost)
+                                {
+                                    inspectedNode.ActualCost = nextSearchedNode.ActualCost + nToNCost;
+                                    inspectedNode.ParentNode = nextSearchedNode;
+                                    inspectedNode.isClosed = false;
+                                    inspectedNode.isOpen = true;
+                                    openList.Add(inspectedNode);
+                                }
+                            } else{ //ノードがclosedでない場合
                                 if (!inspectedNode.isOpen) {
                                     openList.Add(inspectedNode);
                                     inspectedNode.isOpen = true;
@@ -129,7 +145,6 @@ public class PathFinding : MonoBehaviour
             //nextSearchedNodeをclosedListに移し、openListから削除する
             nextSearchedNode.isClosed = true;
             openList.Remove(nextSearchedNode);
-            closedList.Add(nextSearchedNode);
             
         }
     }

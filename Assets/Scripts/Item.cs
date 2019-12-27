@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public GameObject tile;
+    public float HP;
     
     // Start is called before the first frame update
     void Start()
     {
-        tile = this.transform.parent.gameObject;
+
     }
 }

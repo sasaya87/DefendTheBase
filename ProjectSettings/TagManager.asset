@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - PassableItem
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -53,4 +55,7 @@ TagManager:
     locked: 0
   - name: Effect
     uniqueID: 3176356069
+    locked: 0
+  - name: UI
+    uniqueID: 785408911
     locked: 0
