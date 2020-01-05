@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public int Height;
-    public int Width;
+    public static int Height;
+    public static int Width;
+    //インスペクター上から高さと幅を入力
+    [SerializeField]
+    private int heightTemp; 
+    [SerializeField]
+    private int widthTemp;
+
     public int[,] Map;
     public float hvratio; //エイリアンの巣の生成割合
     public float mtratio;
@@ -17,7 +23,7 @@ public class MapGenerator : MonoBehaviour
     private const int HIVE1 = 3;
     private const int HIVE2 = 4;
     private const int HIVE3 = 5;
-    public Tile[,] Tiles;
+    public static Tile[,] Tiles;
     public GameObject Soil;
     public GameObject Mtn;
     public GameObject Base;
@@ -25,6 +31,12 @@ public class MapGenerator : MonoBehaviour
     public GameObject Hive2;
     public GameObject Hive3;
 
+
+    private void Awake()
+    {
+        Height = heightTemp;
+        Width = widthTemp;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -94,24 +106,19 @@ public class MapGenerator : MonoBehaviour
                     {
                         case MTN:
                             GameObject mtnObj = Instantiate(Mtn, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
-                            //mtnObj.transform.parent = soilClone.transform;
                             break;
                         case BASE:
                             GameObject baseObj = Instantiate(Base, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
-                            //baseObj.transform.parent = soilClone.transform;
                             PathFinding.goalTile = soilClone.GetComponent<Tile>();
                             break;
                         case HIVE1:
                             GameObject hive1Obj = Instantiate(Hive1, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
-                            //hive1Obj.transform.parent = soilClone.transform;
                             break;
                         case HIVE2:
                             GameObject hive2Obj = Instantiate(Hive2, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
-                            //hive2Obj.transform.parent = soilClone.transform;
                             break;
                         default:
                             GameObject hive3Obj = Instantiate(Hive3, new Vector3(j - Width/2, i - Height/2, 0), Quaternion.identity, soilClone.transform);
-                            //hive3Obj.transform.parent = soilClone.transform;
                             break;
                     }
                 }

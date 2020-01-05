@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySearchRange : MonoBehaviour
 {
     public bool setTarget; //ターゲットが設定されているか否か
-    private GameObject target; //ターゲット
+    public List<GameObject> targetList = new List<GameObject>(); //索敵範囲内にいるターゲットのリスト
 
     // Start is called before the first frame update
     void Start()
@@ -16,21 +16,22 @@ public class EnemySearchRange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!setTarget && targetList.Count > 0) //ターゲットがセットされておらず、かつ索敵範囲内に敵がいる場合
+        {
+            GameObject target = targetList[Random.Range(0, targetList.Count)]; //ターゲットをランダムに選択
+            setTarget = true;
+            StartCoroutine(this.transform.parent.GetComponent<Turret>().Rotate(target));
+            StartCoroutine(this.transform.parent.GetComponent<Turret>().Shot());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!setTarget)
-        {
-            target = collision.gameObject;
-            setTarget = true;
-            Quaternion targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-            this.transform.parent.rotation = targetRotation;
-        }
-        else
-        {
-            this.transform.parent.GetComponent<Turret>().CoShot();
-        }
+        targetList.Add(collision.gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        targetList.Remove(collision.gameObject);
     }
 }

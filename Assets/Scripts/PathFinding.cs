@@ -7,7 +7,6 @@ public class PathFinding : MonoBehaviour
     private List<Vector2> pathList = new List<Vector2>(); //最終的な経路のリスト
     public static Tile[,] Tiles; //タイル情報.これをこのスクリプトから書き換えてはいけない（元のTilesの情報まで変わってしまうため）
     public static Tile goalTile; //ゴールのタイル情報.基本的には全てのエイリアンで共有
-    private int nodeIndex; //現在の出発点のノードのインデックス. nodeIndex + 1 が現在の目的地
 
     //A*関連
     private List<DirectedNode> openList = new List<DirectedNode>(); //これから処理をするノードが入っているリスト
@@ -17,8 +16,6 @@ public class PathFinding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Tiles = FindObjectOfType<MapGenerator>().Tiles; //タイル情報の読み込み
-        nodeIndex = 0;
         ResetTileNodes(); //tileNodesのデータを初期化
 
         //openListに最初のノードを付け加えたうえでAstarPathFind実行
@@ -44,15 +41,6 @@ public class PathFinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nodeIndex == pathList.Count - 1){
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        }else{
-            Vector2 direction = (pathList[nodeIndex+1] - (Vector2)transform.position).normalized; 
-            GetComponent<Rigidbody2D>().velocity = direction * GetComponent<Character>().speed;
-            if(Vector2.Distance(transform.position, pathList[nodeIndex+1]) <= 0.1){
-                nodeIndex++;
-            }
-        }
         
     }
 
@@ -105,11 +93,11 @@ public class PathFinding : MonoBehaviour
                             float nToNCost;
                             if (i != inspectedNode.i && j != inspectedNode.j)
                             {
-                                nToNCost = Mathf.Sqrt(2);
+                                nToNCost = 1.414214f;
                             }
                             else
                             {
-                                nToNCost = 1;
+                                nToNCost = 1f;
                             }
 
                             if (inspectedNode.isClosed) //ノードがclosedの場合

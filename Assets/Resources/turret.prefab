@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4278901343603573061}
   - component: {fileID: 2545281913445438005}
-  m_Layer: 0
+  - component: {fileID: 8974149544562269832}
+  m_Layer: 12
   m_Name: EnemySearchRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +48,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 10
+--- !u!114 &8974149544562269832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096573266042171948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94bb6a06cbc504489d527a2b4173434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setTarget: 0
+  targetList: []
 --- !u!1 &2965138540154262059
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6550565003679214486}
   - component: {fileID: 8076330313474258047}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TurretCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,9 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9053432043855651088}
   - component: {fileID: 4764238266846331919}
-  - component: {fileID: 114320132171899418}
   - component: {fileID: 114292493123330044}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: turret
   m_TagString: PassableItem
   m_Icon: {fileID: 0}
@@ -173,8 +187,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1576999327
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2d856fab885ba66479fbc18d56e356be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -187,19 +201,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &114320132171899418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4061918449366952002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b92d343f23db04d83647480569e2eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 0
 --- !u!114 &114292493123330044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aace1a6248570c543a51a81f7cbf2904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  bullet: {fileID: 6021887535810699613, guid: 600df0c6751379d43ba8e24a1c5fd0bc, type: 3}
   canShot: 0
-  coolTime: 0
-  shotsNum: 0
+  coolTime: 5
+  shotsNum: 10
+  turningSpeed: 90
+  accuracy: 3

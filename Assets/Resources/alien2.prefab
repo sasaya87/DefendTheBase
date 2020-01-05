@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9033445476566217698}
   - component: {fileID: 8580389121714065867}
   - component: {fileID: 1647020130558790799}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 2159005259335010917}
   - component: {fileID: 6294905324082694736}
   - component: {fileID: 8605809401835899044}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6775525722550883481}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2979982612285627266}
   - component: {fileID: 8787922041173205054}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 2651846889890263429}
   - component: {fileID: 2262118060227678583}
   - component: {fileID: 3880931272295114569}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,9 +379,9 @@ GameObject:
   - component: {fileID: 114686873848925288}
   - component: {fileID: 114341003464555270}
   - component: {fileID: 114042525043333562}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: alien2
-  m_TagString: Character
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -436,7 +436,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1860014739
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 100984467c0628a4daa57ee16422d573, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -462,14 +462,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8324587821532738748
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -535,8 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ab9b93a13aaed43b655e82866417f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
+  maxHP: 150
   speed: 2
-  splash1: {fileID: 0}
-  splash2: {fileID: 0}
-  splash3: {fileID: 0}
+  splash: {fileID: 2963299568648725060, guid: 3ae895f306826fc45847efeea9f4fa4e, type: 3}

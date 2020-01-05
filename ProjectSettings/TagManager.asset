@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - PassableItem
   - Character
+  - Enemy
+  - Turret
   layers:
   - Default
   - TransparentFX
@@ -17,13 +19,13 @@ TagManager:
   - 
   - 
   - Effect
-  - 
-  - Character
+  - Enemy
+  - Player
   - Item
-  - 
-  - 
+  - EnemySearchArea
+  - Bullet
   - Ground
-  - 
+  - Map
   - 
   - 
   - 
@@ -46,6 +48,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 183348499
+    locked: 0
+  - name: TurretBase
+    uniqueID: 3798096799
     locked: 0
   - name: Item
     uniqueID: 1576999327
