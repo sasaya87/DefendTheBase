@@ -11,6 +11,9 @@ public class DirectedNode {
     //このノードの親ノード（スタートにより近いノード）
     public DirectedNode ParentNode {get; set;}
 
+    //このノードの子ノード（ゴールにより近いノード.ただしゴールにつながる経路上に存在するもののみを子ノードとする）
+    public DirectedNode ChildNode { get; set; }
+
     //A*関連パラメータ
     public bool isOpen = false;
     public bool isClosed = false;
@@ -18,7 +21,7 @@ public class DirectedNode {
     public float ActualCost = Mathf.Infinity;
     //goalNodeを引数としてこのノードの評価値を返す
     public float Heuristics(DirectedNode goalNode){
-        return Vector2.Distance(this.position, goalNode.position);
+        return Mathf.Abs(this.i - goalNode.i) + Mathf.Abs(this.j - goalNode.j);
     }
 
     //コンストラクタ

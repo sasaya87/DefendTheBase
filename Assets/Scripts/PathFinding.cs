@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
-    private List<Vector2> pathList = new List<Vector2>(); //最終的な経路のリスト
     public static Tile[,] Tiles; //タイル情報.これをこのスクリプトから書き換えてはいけない（元のTilesの情報まで変わってしまうため）
     public static Tile goalTile; //ゴールのタイル情報.基本的には全てのエイリアンで共有
 
     //A*関連
     private List<DirectedNode> openList = new List<DirectedNode>(); //これから処理をするノードが入っているリスト
     private DirectedNode[,] tileNodes; //マップ全体のノードが入っている配列（このインスタンス専用）
+
+    private bool AstarIsSuspended = false; //A*が途中で打ち切られか否か
 
 
     // Start is called before the first frame update
@@ -31,11 +32,12 @@ public class PathFinding : MonoBehaviour
         DirectedNode goalNode = tileNodes[goalTile.i, goalTile.j];
         //A*法実行
         AstarPathFind(startNode, goalNode);
-        //goalNodeを引数に経路のベクトルリストを作る.この時点では逆順になっていることに注意
-        GetPathVectorList(goalNode);
-        //Debug.Log("start"+pathList.Count);
-        pathList.Reverse();
-        GetComponent<Enemy>().pathList = this.pathList;
+        
+        if (!AstarIsSuspended)
+        {
+            TraceAncestors(goalNode);
+        }
+        GetComponent<Enemy>().startNode = MapManager.tileNodes[startNode.i, startNode.j];
     }
 
     // Update is called once per frame
@@ -79,8 +81,15 @@ public class PathFinding : MonoBehaviour
             if(nextSearchedNode == goalNode){
                 return;
             }
+            //もしnectSearchedNodeがすでに他のenemyが探索した経路と被っていれば探索を打ち切ってその結果を利用する
+            if (MapManager.tileNodes[nextSearchedNode.i, nextSearchedNode.j].ChildNode != null)
+            {
+                TraceAncestors(nextSearchedNode);
+                AstarIsSuspended = true;
+                return;
+            }
             //nextSearchedNodeに隣接するノードのうち通行可能なものをopenListに付け加える
-            for(int i = nextSearchedNode.i - 1; i <= nextSearchedNode.i + 1; i++){
+            for (int i = nextSearchedNode.i - 1; i <= nextSearchedNode.i + 1; i++){
                 for(int j = nextSearchedNode.j - 1; j <= nextSearchedNode.j + 1; j++){
                     if(i >= 0 && i < Tiles.GetLength(0) && j >= 0 && j < Tiles.GetLength(1)){
                         //closedListにもopenListにも入っていないノードは新たにopenListに付け加える
@@ -114,7 +123,7 @@ public class PathFinding : MonoBehaviour
                                     openList.Add(inspectedNode);
                                 }
                             } else{ //ノードがclosedでない場合
-                                if (!inspectedNode.isOpen) {
+                                if (!inspectedNode.isOpen) { //ノードが未openの場合はopenする
                                     openList.Add(inspectedNode);
                                     inspectedNode.isOpen = true;
                                     inspectedNode.ActualCost = nextSearchedNode.ActualCost + nToNCost;
@@ -137,11 +146,13 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    //ゴールからノードをたどってベクトルのリストとしてpathListに書き込む
-    private void GetPathVectorList(DirectedNode goalNode){
-        pathList.Add(goalNode.position);
-        if(goalNode.ParentNode != null){
-            GetPathVectorList(goalNode.ParentNode);
+    //ゴールから親をたどっていき、MapManagerのtileNodesに子ノードの情報を登録
+    private void TraceAncestors(DirectedNode goalNode)
+    {
+        if (goalNode.ParentNode != null)
+        {
+            MapManager.tileNodes[goalNode.ParentNode.i, goalNode.ParentNode.j].ChildNode = MapManager.tileNodes[goalNode.i, goalNode.j];
+            TraceAncestors(goalNode.ParentNode);
         }
     }
 

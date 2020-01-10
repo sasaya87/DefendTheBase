@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private float HP;
     public float maxHP;
+    public float HP { get; set; }
     public float passCost; //通過するのに必要なコスト（speedにpassCostをかけたものが実際の速さ）
     
     // Start is called before the first frame update

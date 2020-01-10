@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Exposion : MonoBehaviour
+public class Explosion : MonoBehaviour
 {
 
     public float damage; //爆発ダメージ

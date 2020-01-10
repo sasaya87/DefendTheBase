@@ -379,6 +379,7 @@ GameObject:
   - component: {fileID: 114686873848925288}
   - component: {fileID: 114341003464555270}
   - component: {fileID: 114042525043333562}
+  - component: {fileID: 58396390417372870}
   m_Layer: 9
   m_Name: alien2
   m_TagString: Enemy
@@ -523,6 +524,10 @@ MonoBehaviour:
   hive: {fileID: 0}
   pathList: []
   isKnocked: 0
+  attackEffect: {fileID: 2784222510000950958, guid: e251de5661f99f8498a9ce1160ed3881,
+    type: 3}
+  attackPoint: 15
+  attackInterval: 2.5
 --- !u!114 &114042525043333562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +540,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ab9b93a13aaed43b655e82866417f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 150
+  maxHP: 200
   speed: 2
   splash: {fileID: 2963299568648725060, guid: 3ae895f306826fc45847efeea9f4fa4e, type: 3}
+--- !u!58 &58396390417372870
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7257362170268158660}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
